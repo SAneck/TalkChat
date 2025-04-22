@@ -1,0 +1,18 @@
+<header class="header">
+    <div class="header-container">
+      <div class="logo">
+        <span class="logo-icon">💬</span>
+        <h1><a routerLink="/">TalkChat</a></h1>
+      </div>
+      <div class="auth-buttons">
+        <button 
+          class="btn login-btn"
+          routerLink='/signIn' 
+          *ngIf="showButton$ | async">Войти</button>
+        <button 
+        class="btn login-btn"
+        routerLink='/signIn' 
+        *ngIf="(showButton$ | async) === false">Профиль</button>
+      </div>
+    </div>
+  </header>

@@ -1,0 +1,129 @@
+.profile-card {
+    width: 100%;
+    max-width: 400px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    }
+  
+    .profile-header {
+      position: relative;
+      padding: 30px 20px 20px;
+      background: linear-gradient(135deg, #6e8efb, #a777e3);
+      color: white;
+      text-align: center;
+  
+      .profile-avatar {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        border: 4px solid white;
+        object-fit: cover;
+        margin-bottom: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+  
+      .profile-username {
+        margin: 0;
+        font-size: 1.5rem;
+        font-weight: 600;
+      }
+  
+      .profile-status {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 500;
+        margin-top: 8px;
+  
+        &.active {
+          background: rgba(255, 255, 255, 0.2);
+          color: #4caf50;
+        }
+  
+        &.inactive {
+          background: rgba(255, 255, 255, 0.2);
+          color: #f44336;
+        }
+      }
+    }
+  
+    .profile-body {
+      padding: 20px;
+  
+      .profile-name {
+        margin: 0 0 5px;
+        font-size: 1.3rem;
+        color: #333;
+      }
+  
+      .profile-city {
+        margin: 0 0 20px;
+        color: #666;
+        font-size: 0.9rem;
+      }
+  
+      .profile-stats {
+        display: flex;
+        justify-content: space-around;
+        margin: 20px 0;
+        padding: 15px 0;
+        border-top: 1px solid #eee;
+        border-bottom: 1px solid #eee;
+  
+        .stat-item {
+          text-align: center;
+  
+          .stat-value {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #6e8efb;
+          }
+  
+          .stat-label {
+            font-size: 0.8rem;
+            color: #888;
+            text-transform: uppercase;
+          }
+        }
+      }
+  
+      .profile-stack {
+        h4 {
+          margin: 0 0 10px;
+          font-size: 1rem;
+          color: #555;
+        }
+  
+        .stack-items {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+  
+          .stack-item {
+            background: #f0f2f5;
+            color: #555;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            transition: all 0.2s ease;
+  
+            &:hover {
+              background: #6e8efb;
+              color: white;
+              transform: translateY(-2px);
+            }
+          }
+        }
+      }
+    }
+  }

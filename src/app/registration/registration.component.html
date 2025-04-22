@@ -1,0 +1,35 @@
+<app-header></app-header>
+<div class="auth-container">
+    <div class="auth-card">
+      <div class="auth-header">
+        <h2>{{ isReg ? 'Вход' : 'Регистрация' }}</h2>
+      </div>
+  
+      <form [formGroup]="regGroup" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input 
+            type="text" 
+            formControlName="username"
+            placeholder="Введите никнейм">
+        </div>
+  
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input 
+            type="password" 
+            formControlName="password"
+            placeholder="Введите пароль">
+        </div>
+  
+        <button type="submit" (click)="registration()" class="auth-btn">{{ isReg ? 'Войти' : 'Зарегистрироваться' }}</button>
+  
+        <div  class="toggle-mode">
+          <span>{{ isReg ? 'Нет аккаунта?' : 'Уже есть аккаунт?'}}</span>
+          <button type="button" (click)="toggle()" class="toggle-btn">
+            {{ isReg ? 'Создать' : 'Войти' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>

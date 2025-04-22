@@ -1,0 +1,28 @@
+<div class="profile-card">
+    <div class="profile-header">
+      <img [src]=" baseUrl + '/' + photo" alt="Profile photo" class="profile-avatar" *ngIf="photo">
+      <h2 class="profile-username">{{username}}</h2>
+      <span class="profile-status" [class.active]="isActive" [class.inactive]="!isActive">
+        {{isActive ? 'Online' : 'Offline'}}
+      </span>
+    </div>
+  
+    <div class="profile-body">
+      <h3 class="profile-name">{{firstName}} {{secondName}}</h3>
+      <p class="profile-city">{{city}}</p>
+      
+      <div class="profile-stats">
+        <div class="stat-item">
+          <span class="stat-value">{{subscribers}}</span>
+          <span class="stat-label">Subscribers</span>
+        </div>
+      </div>
+  
+      <div class="profile-stack" *ngIf="stack">
+        <h4>Skills:</h4>
+        <div class="stack-items">
+          <span class="stack-item" *ngFor="let skill of stack">{{skill}}</span>
+        </div>
+      </div>
+    </div>
+  </div>

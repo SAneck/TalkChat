@@ -1,0 +1,12 @@
+<div *ngFor="let user of allUsers$ | async">
+    <app-profile-card 
+        [city]="user.city"
+        [firstName]="user.firstName"
+        [isActive]="user.isActive"
+        [username]="user.username"
+        [photo]="user.avatarUrl"
+        [subscribers]="user.subscribersAmount"
+        [secondName]="user.lastName"
+        [stack]="user.stack"
+    ></app-profile-card>
+</div>

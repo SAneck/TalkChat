@@ -1,0 +1,81 @@
+.header {
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
+    padding: 1rem 2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  
+    &-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+  
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+
+      a{
+        text-decoration: none;
+        color: rgb(43, 43, 43);
+      }
+  
+      &:hover {
+        transform: translateX(5px);
+      }
+  
+      &-icon {
+        font-size: 1.8rem;
+      }
+  
+      h1 {
+        margin: 0;
+        font-size: 1.5rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+      }
+    }
+  
+    .auth-buttons {
+      display: flex;
+      gap: 15px;
+  
+      .btn {
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+      }
+  
+      .login-btn {
+        background: transparent;
+        color: white;
+        border-color: rgba(255, 255, 255, 0.3);
+  
+        &:hover {
+          background: rgba(255, 255, 255, 0.1);
+        }
+      }
+  
+      .register-btn {
+        background: white;
+        color: #6e8efb;
+  
+        &:hover {
+          background: #f0f0f0;
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+      }
+    }
+  }
