@@ -1,10 +1,17 @@
-import { Routes } from '@angular/router';
+import { Routes, CanActivateFn } from '@angular/router';
 import { RegistrationComponent } from './registration/registration.component';
-import { AppComponent } from './app.component';
-import { CardListComponent } from './card-list/card-list.component';
 import { HomeComponent } from './home/home.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { LayoutComponent } from './layout/layout.component';
+import { canActivateAuth } from './accsess.guard';
 
 export const routes: Routes = [
-    {path: '', component: HomeComponent},
+    {
+    path: '', component: LayoutComponent , children: [
+        {path: '', component: HomeComponent},
+        {path: 'profile', component: UserProfileComponent},
+    ],
+    canActivate: [canActivateAuth]
+    },
     {path: 'signIn', component: RegistrationComponent}
 ];

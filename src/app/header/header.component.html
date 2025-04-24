@@ -8,11 +8,14 @@
         <button 
           class="btn login-btn"
           routerLink='/signIn' 
-          *ngIf="showButton$ | async">Войти</button>
+          *ngIf="(isLoggedIn$ | async) === false">Войти
+        </button>
+
         <button 
-        class="btn login-btn"
-        routerLink='/signIn' 
-        *ngIf="(showButton$ | async) === false">Профиль</button>
+          class="btn login-btn"
+          routerLink='/profile' 
+          *ngIf="isLoggedIn$ | async">Профиль
+        </button>
       </div>
     </div>
   </header>

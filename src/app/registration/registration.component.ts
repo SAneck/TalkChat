@@ -5,6 +5,7 @@ import { NgIf } from '@angular/common';
 import { TalkService } from '../talk-service.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { CustomUser } from '../interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registration',
@@ -18,16 +19,20 @@ export class RegistrationComponent implements OnInit {
   isReg: boolean = true
 
   regGroup = new FormGroup({
-    username: new FormControl('', [Validators.requiredTrue]),
-    password: new FormControl('', [Validators.requiredTrue])
+    username: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required])
   })
 
-  constructor(private talkService: TalkService){}
+  constructor(private talkService: TalkService, private router: Router){}
 
   onSubmit(){
-    if(this.regGroup.get('username')?.value === '' || this.regGroup.get('password')?.value === '') return alert('Не все поля заполнены корректно!')
-    this.regGroup.reset()
+    if(this.regGroup.invalid) return alert('Не все поля заполнены корректно!')
+    this.talkService.login(this.regGroup.value).subscribe(res => {
+      this.router.navigate(['/'])
+      console.log(res)
+    })
     console.log(this.regGroup.value)
+    this.regGroup.reset()
   }
 
   toggle(){
@@ -35,7 +40,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   registration(){
-    this.talkService.addUsertoLocalStorage(this.regGroup.value)
+    this.talkService.login(this.regGroup.value)
   }
 
   authorisation(){

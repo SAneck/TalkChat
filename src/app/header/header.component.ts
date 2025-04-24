@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { TalkService } from '../talk-service.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -11,9 +12,13 @@ import { TalkService } from '../talk-service.service';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
-  showButton$ = this.talkService.authStatus$
+  // showButton$ = this.talkService.authStatus$
 
-  constructor(private talkService: TalkService){}
+  isLoggedIn$: Observable<boolean>
+
+  constructor(private talkService: TalkService){
+    this.isLoggedIn$ = talkService.isAuth
+  }
 
 
 }
