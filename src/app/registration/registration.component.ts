@@ -1,22 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { HeaderComponent } from "../header/header.component";
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgIf } from '@angular/common';
 import { TalkService } from '../talk-service.service';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { CustomUser } from '../interface';
 import { Router } from '@angular/router';
+import { FooterComponent } from "../footer/footer.component";
 
 @Component({
   selector: 'app-registration',
   standalone: true,
-  imports: [HeaderComponent, ReactiveFormsModule, NgIf],
+  imports: [HeaderComponent, ReactiveFormsModule, NgIf, FooterComponent],
   templateUrl: './registration.component.html',
   styleUrl: './registration.component.scss'
 })
 export class RegistrationComponent implements OnInit {
 
   isReg: boolean = true
+  isPasswordVisible = signal<boolean>(false)
 
   regGroup = new FormGroup({
     username: new FormControl('', [Validators.required]),
@@ -26,6 +26,7 @@ export class RegistrationComponent implements OnInit {
   constructor(private talkService: TalkService, private router: Router){}
 
   onSubmit(){
+    this.isPasswordVisible.set(true)
     if(this.regGroup.invalid) return alert('Не все поля заполнены корректно!')
     this.talkService.login(this.regGroup.value).subscribe(res => {
       this.router.navigate(['/'])

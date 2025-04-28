@@ -26,6 +26,13 @@ export class TalkService {
 
   constructor(private http: HttpClient, private router: Router) {
 
+    const token = this.cookieService.get('token');
+    if (token) {
+      console.log('Token found:', token);
+    } else {
+      console.log('Token not found');
+    }
+    
     this.allUsers$ = combineLatest([
       this.getProfiles(),
       this.userName$
@@ -39,22 +46,24 @@ export class TalkService {
       })
     )
 
-    this.heckAuthOnStartup()
+    this.checkAuthOnStartup()
   }
 
   checkInitialAuthState(): boolean {
     return this.cookieService.check('token');
   }
 
-  heckAuthOnStartup(): void {
-    const token = this.cookieService.get('authToken');
+  checkAuthOnStartup(): void {
+    const token = this.cookieService.get('token');
     if (token) {
       this._isAuth$.next(true);
+    } else {
+      alert('NEt')
     }
   }
 
   get token(): string | null {
-  return this._token;
+    return this._token;
   }
 
   get isAuth(){
@@ -69,9 +78,8 @@ export class TalkService {
     this._isAuth$.next(this.cookieService.check('token'));
   }
 
-  getProfiles(): Observable<UserProfile[]>{
-    console.log(this.http.get<UserProfile[]>( this.baseUrl +  '/account/test_accounts'))
-    return this.http.get<UserProfile[]>( this.baseUrl +  '/account/test_accounts')
+  getProfiles(): Observable<UserProfile[]> {
+    return this.http.get<UserProfile[]>(this.baseUrl + '/account/test_accounts');
   }
 
   searchUsers(name: string): void{
@@ -96,6 +104,7 @@ export class TalkService {
     this.router.navigate(['/profile']);
   }
 
+  
 
  // addUsertoLocalStorage(userData: {username?: string | null; password?: string | null}){
   //   localStorage.setItem('user', JSON.stringify(userData))
@@ -113,6 +122,6 @@ export class TalkService {
   //   this.authStatus$.next(this.checkLocalStorage())
   // }
 
-  // ДАННЫЕ ДЛЯ ВХОДА  username - BhadBabyBitch, password - NzFEpPzKvG
+  // ДАННЫЕ ДЛЯ ВХОДА  username - BhadBabyBitch, password - zZ6to1Ajri
 
 }
