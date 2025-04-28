@@ -1,21 +1,17 @@
 <header class="header">
-    <div class="header-container">
-      <div class="logo">
-        <span class="logo-icon">💬</span>
-        <h1><a routerLink="/">TalkChat</a></h1>
-      </div>
-      <div class="auth-buttons">
-        <button 
-          class="btn login-btn"
-          routerLink='/signIn' 
-          *ngIf="(isLoggedIn$ | async) === false">Войти
-        </button>
+  <div class="header-container">
+    <div class="logo">
+      <span class="logo-icon">💬</span>
+      <h1><a routerLink="/">TalkChat</a></h1>
+    </div>
+    <div class="auth-buttons">
+      <button class="btn login-btn" routerLink="/signIn">Войти</button>
 
-        <button 
+      <!-- <button 
           class="btn login-btn"
           routerLink='/profile' 
           *ngIf="isLoggedIn$ | async">Профиль
-        </button>
-      </div>
+        </button> -->
     </div>
-  </header>
+  </div>
+</header>

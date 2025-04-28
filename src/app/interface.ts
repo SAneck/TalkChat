@@ -12,12 +12,13 @@ export interface UserProfile {
 }
 
 export interface CustomUser {
-  id: number
-  username: string
-  password: string
-} 
+  id: number;
+  username: string;
+  password: string;
+}
 
 export interface TokenResponse {
-  access_token: string
-  refresh_token: string
+  access_token: string;
+  refresh_token: string;
+  token_type: string;
 }

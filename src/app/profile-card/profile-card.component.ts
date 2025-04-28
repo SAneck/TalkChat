@@ -1,18 +1,16 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TalkService } from '../talk-service.service';
-
+import { TalkService } from '../talk.service';
 
 @Component({
   selector: 'app-profile-card',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './profile-card.component.html',
-  styleUrl: './profile-card.component.scss'
+  styleUrl: './profile-card.component.scss',
 })
 export class ProfileCardComponent {
-
-  baseUrl = 'https://icherniakov.ru/yt-course'
+  baseUrl = 'https://icherniakov.ru/yt-course';
 
   @Input() username: string = '';
   @Input() photo: string = '';
