@@ -33,4 +33,9 @@ export class TalkService {
     console.log(name);
     return this.userName$.next(name || '');
   }
+  
+  getMe(): Observable<UserProfile>{
+    return this.http.get<UserProfile>(this.baseUrl + '/account/me')
+  }
+
 }

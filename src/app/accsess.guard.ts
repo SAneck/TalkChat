@@ -1,16 +1,14 @@
 import { inject } from '@angular/core';
-import { TalkService } from './talk.service';
 import { Router, CanActivateFn, UrlTree } from '@angular/router';
 import { map, Observable } from 'rxjs';
+import { AuthService } from './auth.service';
 
-// export const canActivateAuth: CanActivateFn = () => {
-//   const talkService = inject(TalkService);
-//   const router = inject(Router);
+export const canActivateAuth: CanActivateFn = () => {
+  const isLoggedIn = inject(AuthService).isLoggedIn;
+  const router = inject(Router);
 
-//   return talkService.isAuth.pipe(
-//     map(isAuth => {
-//       if (isAuth) return true;
-//       return router.createUrlTree(['/signIn']);
-//     })
-//   );
-// };
+  if(isLoggedIn){
+    return true
+  }
+  return router.navigate(['/signIn'])
+};

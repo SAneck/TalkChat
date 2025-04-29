@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { HeaderComponent } from '../header/header.component';
 import {
   FormControl,
@@ -11,6 +11,7 @@ import { TalkService } from '../talk.service';
 import { Router } from '@angular/router';
 import { FooterComponent } from '../footer/footer.component';
 import { AuthService } from '../auth.service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-registration',
@@ -19,7 +20,7 @@ import { AuthService } from '../auth.service';
   templateUrl: './registration.component.html',
   styleUrl: './registration.component.scss',
 })
-export class RegistrationComponent implements OnInit {
+export class RegistrationComponent {
   isReg: boolean = true;
   isPasswordVisible = signal<boolean>(false);
 
@@ -35,12 +36,13 @@ export class RegistrationComponent implements OnInit {
   ) {}
 
   onSubmit() {
-    this.authService.login(this.regGroup.value);
+    this.authService.login(this.regGroup.value).subscribe(res => {
+      this.router.navigate([''])
+    });
   }
 
   toggle() {
     this.isReg = !this.isReg;
   }
 
-  ngOnInit() {}
 }

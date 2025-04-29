@@ -5,13 +5,15 @@
       <h1><a routerLink="/">TalkChat</a></h1>
     </div>
     <div class="auth-buttons">
-      <button class="btn login-btn" routerLink="/signIn">Войти</button>
-
-      <!-- <button 
-          class="btn login-btn"
-          routerLink='/profile' 
-          *ngIf="isLoggedIn$ | async">Профиль
-        </button> -->
+      <button *ngIf="!(isLoggedIn$ | async)" class="btn login-btn" routerLink="/signIn">
+        Войти
+      </button>
+      <button *ngIf="isLoggedIn$ | async" class="btn login-btn" routerLink="/profile" >
+        Профиль
+      </button>
+      <button *ngIf="isLoggedIn$ | async" (click)="logout()" class="btn login-btn">
+        Выйти
+      </button>
     </div>
   </div>
 </header>
