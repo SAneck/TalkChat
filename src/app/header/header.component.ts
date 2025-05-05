@@ -19,8 +19,6 @@ export class HeaderComponent {
 
   constructor(private authService: AuthService, private router: Router) {
     this.isLoggedIn$ = authService._isLoggedIn$
-    console.log(this.isLoggedIn$)
-    console.log(authService._isLoggedIn$.value)
   }
 
   logout(){
