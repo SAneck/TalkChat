@@ -1,1 +1,10 @@
-<!-- <app-header></app-header> -->
+<div *ngIf="myAcc$ | async as user">
+    <p>{{user.username}}</p>
+    {{user.city}}
+    {{user.avatarUrl}}
+    {{user.description}}
+    <p>{{user.isActive}}</p>
+    {{user.lastName}}
+    {{user.stack}}
+    {{user.subscribersAmount}}
+</div>

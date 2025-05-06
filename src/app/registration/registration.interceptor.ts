@@ -1,7 +1,8 @@
-import { HttpInterceptorFn } from "@angular/common/http";
+import { HttpHandlerFn, HttpInterceptorFn, HttpRequest } from "@angular/common/http";
 import { inject } from "@angular/core";
 import { AuthService } from "../auth.service";
 import { CookieService } from "ngx-cookie-service";
+import { catchError, switchMap, throwError } from "rxjs";
 
 export const authTokenInterceptor: HttpInterceptorFn = (req, next) => {
     const authService = inject(AuthService);
@@ -19,5 +20,21 @@ export const authTokenInterceptor: HttpInterceptorFn = (req, next) => {
         }
     });
     
-    return next(authReq);
-};
+    return next(authReq).pipe(
+        catchError(error => {
+            if(error.status === 403) {
+                return refreshAndProceed(authService, req, next)
+            }
+
+            return throwError(error)
+        })
+    )
+}
+const refreshAndProceed = (
+    authService: AuthService, 
+    req: HttpRequest<any>, 
+    next: HttpHandlerFn) => {
+    return authService.refreshAuthtoken().pipe(
+        switchMap()
+    )
+}

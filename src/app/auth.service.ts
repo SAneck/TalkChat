@@ -3,7 +3,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { TalkService } from './talk.service';
 import { TokenResponse } from './interface';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, of, tap } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, of, tap, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -37,10 +37,7 @@ export class AuthService {
 
     return this.http.post<TokenResponse>(this.baseUrl + '/auth/token', fd).pipe(
       tap((val) => {
-        this.token = val.access_token;
-        this.refresh_token = val.refresh_token;
-        this.cookieService.set('token', this.token);
-        this.cookieService.set('refresh_token', this.refresh_token);
+        this.saveTokens(val)
         this._isLoggedIn$.next(true);
       })
     );
@@ -55,6 +52,29 @@ export class AuthService {
       this.router.navigate(['/signIn']);
     }
     )
+  }
+
+
+  refreshAuthtoken(){
+    return this.http.post<TokenResponse>(this.baseUrl + '/auth/token', {
+      refresh_token: this.refresh_token
+    }).pipe(
+      tap((val) => {
+        this.saveTokens(val)
+        this._isLoggedIn$.next(true);
+      }),
+      catchError(error => {
+        this.logout
+        return throwError(error)
+      })
+    )
+  }
+
+  saveTokens(res: TokenResponse){
+    this.token = res.access_token;
+    this.refresh_token = res.refresh_token;
+    this.cookieService.set('token', this.token);
+    this.cookieService.set('refresh_token', this.refresh_token);
   }
 
 }
