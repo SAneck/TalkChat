@@ -64,7 +64,7 @@ export class AuthService {
         this._isLoggedIn$.next(true);
       }),
       catchError(error => {
-        this.logout
+        this.logout()
         return throwError(error)
       })
     )

@@ -4,6 +4,8 @@ import { AuthService } from "../auth.service";
 import { CookieService } from "ngx-cookie-service";
 import { catchError, switchMap, throwError } from "rxjs";
 
+let isrefreshing: boolean = false
+
 export const authTokenInterceptor: HttpInterceptorFn = (req, next) => {
     const authService = inject(AuthService);
     const cookieService = inject(CookieService);
@@ -14,13 +16,17 @@ export const authTokenInterceptor: HttpInterceptorFn = (req, next) => {
         return next(req);
     }
     
+    if(isrefreshing){
+        return refreshAndProceed(authService, req, next)
+    }
+
     const authReq = req.clone({
         setHeaders: {
             Authorization: `Bearer ${token}`
         }
     });
     
-    return next(authReq).pipe(
+    return next(addToken(req, token)).pipe(
         catchError(error => {
             if(error.status === 403) {
                 return refreshAndProceed(authService, req, next)
@@ -34,7 +40,20 @@ const refreshAndProceed = (
     authService: AuthService, 
     req: HttpRequest<any>, 
     next: HttpHandlerFn) => {
-    return authService.refreshAuthtoken().pipe(
-        switchMap()
-    )
+        if(!isrefreshing){
+            isrefreshing = true
+            return authService.refreshAuthtoken().pipe(
+                switchMap(res => {
+                    isrefreshing = false
+                    return next(addToken(req, res.access_token))
+                })
+            )
+        }
+    return next(addToken(req, authService.token!))
+}
+
+const addToken = (req: HttpRequest<any>, token: string) => {
+    return req.clone({
+        setHeaders: { Authorization: `Bearer ${token}` }
+    })
 }
